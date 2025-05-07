@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../domain/entities/movie.dart';
 import '../providers/movie_list_provider.dart';
 import '../widgets/movie_carousel_slider.dart';
+import 'movie_detail_page.dart';
 
 class MovieListPage extends ConsumerWidget {
   const MovieListPage({super.key});
@@ -31,6 +33,9 @@ class MovieListPage extends ConsumerWidget {
               nowPlayingMovies.when(
                 data: (movies) => MovieCarouselSlider(
                   movies: movies,
+                  onTapItem: (movie) {
+                    _presentMovieDetailPage(context, movie);
+                  },
                 ),
                 error: (error, stackTrace) =>
                     Center(child: Text(error.toString())),
@@ -39,6 +44,16 @@ class MovieListPage extends ConsumerWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  void _presentMovieDetailPage(BuildContext context, Movie movie) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => MovieDetailPage(movie: movie),
+        fullscreenDialog: true,
       ),
     );
   }

@@ -8,7 +8,7 @@ import '../../utils/constants.dart';
 class MovieCarouselSlider extends StatelessWidget {
   final List<Movie> movies;
   final String? title;
-  final Function(Movie movie, int index)? onTapItem;
+  final Function(Movie movie)? onTapItem;
 
   const MovieCarouselSlider({
     super.key,
@@ -25,7 +25,7 @@ class MovieCarouselSlider extends StatelessWidget {
         if (onTapItem != null) {
           return GestureDetector(
             onTap: () {
-              onTapItem!(movies[index], index);
+              onTapItem!(movies[index]);
             },
             child: _buildItem(movies[index]),
           );
