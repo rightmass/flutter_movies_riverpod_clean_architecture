@@ -33,7 +33,7 @@ class MovieDetailPage extends ConsumerWidget {
                 centerTitle: true,
                 title: Text(
                   movie.title,
-                  style: GoogleFonts.sunflower(
+                  style: GoogleFonts.gowunDodum(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
                   ),
@@ -51,7 +51,7 @@ class MovieDetailPage extends ConsumerWidget {
                     const Divider(height: 40),
                     Text(
                       'Similar',
-                      style: GoogleFonts.oswald(fontSize: 20),
+                      style: GoogleFonts.gowunDodum(fontSize: 20),
                     ),
                     const SizedBox(height: 8),
                     _buildSimilarMoviesSection(context, similarMovies),
@@ -134,7 +134,7 @@ class MovieDetailPage extends ConsumerWidget {
         const SizedBox(height: 12),
         Text(
           movie.overview ?? '',
-          style: GoogleFonts.nanumGothic(fontSize: 16),
+          style: GoogleFonts.gowunDodum(fontSize: 16),
         ),
       ],
     );

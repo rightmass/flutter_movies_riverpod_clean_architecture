@@ -22,7 +22,7 @@ class MovieListPage extends ConsumerWidget {
       appBar: AppBar(
         title: Text(
           'Flutter Movies',
-          style: GoogleFonts.oswald(
+          style: GoogleFonts.gowunDodum(
             fontSize: 28,
             fontWeight: FontWeight.bold,
           ),
@@ -80,7 +80,7 @@ class MovieListPage extends ConsumerWidget {
                   padding: const EdgeInsets.fromLTRB(18, 24, 18, 8),
                   child: Text(
                     title,
-                    style: GoogleFonts.sunflower(fontSize: 20),
+                    style: GoogleFonts.gowunDodum(fontSize: 20),
                   ),
                 ),
                 MovieHorizontalList(
