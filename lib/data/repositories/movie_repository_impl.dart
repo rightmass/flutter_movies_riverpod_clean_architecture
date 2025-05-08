@@ -32,4 +32,10 @@ class MovieRepositoryImpl implements MovieRepository {
     final models = await remoteDataSource.getUpcomingMovies();
     return models.map((model) => model.toEntity()).toList();
   }
+
+  @override
+  Future<List<Movie>> getSimilarMovies(int movieId) async {
+    final models = await remoteDataSource.getSimilarMovies(movieId);
+    return models.map((model) => model.toEntity()).toList();
+  }
 }

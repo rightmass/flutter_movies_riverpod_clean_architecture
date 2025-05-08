@@ -86,5 +86,25 @@ final getUpcomingMoviesUseCaseProvider =
 // ignore: unused_element
 typedef GetUpcomingMoviesUseCaseRef
     = AutoDisposeFutureProviderRef<GetUpcomingMoviesUseCase>;
+String _$getSimilarMoviesUseCaseHash() =>
+    r'cc54216277f760c0b10bd2f48c65c3b1d7049900';
+
+/// See also [getSimilarMoviesUseCase].
+@ProviderFor(getSimilarMoviesUseCase)
+final getSimilarMoviesUseCaseProvider =
+    AutoDisposeFutureProvider<GetSimilarMoviesUseCase>.internal(
+  getSimilarMoviesUseCase,
+  name: r'getSimilarMoviesUseCaseProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$getSimilarMoviesUseCaseHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef GetSimilarMoviesUseCaseRef
+    = AutoDisposeFutureProviderRef<GetSimilarMoviesUseCase>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -29,3 +29,9 @@ Future<List<Movie>> upcomingMovies(Ref ref) async {
   final getUpcomingMovies = await ref.watch(getUpcomingMoviesUseCaseProvider.future);
   return getUpcomingMovies.execute();
 }
+
+@riverpod
+Future<List<Movie>> similarMovies(Ref ref, int movieId) async {
+  final getSimilarMovies = await ref.watch(getSimilarMoviesUseCaseProvider.future);
+  return getSimilarMovies.execute(movieId);
+}

@@ -3,6 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../domain/usecases/get_now_playing_movies.dart';
 import '../../domain/usecases/get_popular_movies.dart';
+import '../../domain/usecases/get_similar_movies.dart';
 import '../../domain/usecases/get_top_rated_movies.dart';
 import '../../domain/usecases/get_upcoming_movies.dart';
 import 'movie_repository_provider.dart';
@@ -31,4 +32,10 @@ Future<GetTopRatedMoviesUseCase> getTopRatedMoviesUseCase(Ref ref) async {
 Future<GetUpcomingMoviesUseCase> getUpcomingMoviesUseCase(Ref ref) async {
   final repository = await ref.watch(movieRepositoryProvider.future);
   return GetUpcomingMoviesUseCase(repository);
+}
+
+@riverpod
+Future<GetSimilarMoviesUseCase> getSimilarMoviesUseCase(Ref ref) async {
+  final repository = await ref.watch(movieRepositoryProvider.future);
+  return GetSimilarMoviesUseCase(repository);
 }
