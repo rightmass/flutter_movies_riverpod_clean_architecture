@@ -22,16 +22,10 @@ class MovieCarouselSlider extends StatelessWidget {
     return CarouselSlider.builder(
       itemCount: movies.length,
       itemBuilder: (context, index, realIndex) {
-        if (onTapItem != null) {
-          return GestureDetector(
-            onTap: () {
-              onTapItem!(movies[index]);
-            },
-            child: _buildItem(movies[index]),
-          );
-        } else {
-          return _buildItem(movies[index]);
-        }
+        return GestureDetector(
+          onTap: () => onTapItem?.call(movies[index]),
+          child: _buildItem(movies[index]),
+        );
       },
       options: CarouselOptions(
         aspectRatio: 0.9,

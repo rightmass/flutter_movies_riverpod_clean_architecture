@@ -12,30 +12,24 @@ class MovieHorizontalList extends StatelessWidget {
   const MovieHorizontalList({
     super.key,
     required this.movies,
-    this.height = 200,
+    this.height,
     this.onTapItem,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 200,
+      height: height ?? 200,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.symmetric(horizontal: 12),
         itemCount: movies.length,
         itemBuilder: (context, index) {
-          if (onTapItem != null) {
-            return GestureDetector(
-              onTap: () {
-                onTapItem!(movies[index]);
-              },
-              child: _buildItem(movies[index]),
-            );
-          } else {
-            return _buildItem(movies[index]);
-          }
+          return GestureDetector(
+            onTap: () => onTapItem?.call(movies[index]),
+            child: _buildItem(movies[index]),
+          );
         },
       ),
     );

@@ -22,16 +22,10 @@ class MovieVerticalGrid extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       itemCount: movies.length,
       itemBuilder: (context, index) {
-        if (onTapItem != null) {
-          return GestureDetector(
-            onTap: () {
-              onTapItem!(movies[index]);
-            },
-            child: _buildItem(movies[index]),
-          );
-        } else {
-          return _buildItem(movies[index]);
-        }
+        return GestureDetector(
+          onTap: () => onTapItem?.call(movies[index]),
+          child: _buildItem(movies[index]),
+        );
       },
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
