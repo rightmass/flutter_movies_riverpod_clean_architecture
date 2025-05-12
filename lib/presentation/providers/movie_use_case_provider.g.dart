@@ -106,5 +106,45 @@ final getSimilarMoviesUseCaseProvider =
 // ignore: unused_element
 typedef GetSimilarMoviesUseCaseRef
     = AutoDisposeFutureProviderRef<GetSimilarMoviesUseCase>;
+String _$toggleFavoriteMovieUseCaseHash() =>
+    r'4fd338697505662d73e993bc8298e0b0ec05a2f0';
+
+/// See also [toggleFavoriteMovieUseCase].
+@ProviderFor(toggleFavoriteMovieUseCase)
+final toggleFavoriteMovieUseCaseProvider =
+    AutoDisposeFutureProvider<ToggleFavoriteMovieUseCase>.internal(
+  toggleFavoriteMovieUseCase,
+  name: r'toggleFavoriteMovieUseCaseProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$toggleFavoriteMovieUseCaseHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef ToggleFavoriteMovieUseCaseRef
+    = AutoDisposeFutureProviderRef<ToggleFavoriteMovieUseCase>;
+String _$getFavoriteMoviesUseCaseHash() =>
+    r'781c067ebc339dedc98092676b3ce1186f9edd04';
+
+/// See also [getFavoriteMoviesUseCase].
+@ProviderFor(getFavoriteMoviesUseCase)
+final getFavoriteMoviesUseCaseProvider =
+    AutoDisposeFutureProvider<GetFavoriteMoviesUseCase>.internal(
+  getFavoriteMoviesUseCase,
+  name: r'getFavoriteMoviesUseCaseProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$getFavoriteMoviesUseCaseHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef GetFavoriteMoviesUseCaseRef
+    = AutoDisposeFutureProviderRef<GetFavoriteMoviesUseCase>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

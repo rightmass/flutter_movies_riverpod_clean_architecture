@@ -10,8 +10,10 @@ part 'movie_repository_provider.g.dart';
 @riverpod
 Future<MovieRepository> movieRepository(Ref ref) async {
   final remoteDataSource = ref.watch(movieRemoteDataSourceProvider);
+  final localDataSource = await ref.watch(movieLocalDataSourceProvider.future);
 
   return MovieRepositoryImpl(
     remoteDataSource: remoteDataSource,
+    localDataSource: localDataSource,
   );
 }

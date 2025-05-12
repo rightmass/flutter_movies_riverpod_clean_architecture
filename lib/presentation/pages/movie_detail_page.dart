@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../domain/entities/movie.dart';
 import '../../utils/constants.dart';
+import '../providers/favorite_movies_notifier.dart';
 import '../providers/movie_list_provider.dart';
 import '../widgets/movie_vertical_grid.dart';
 
@@ -19,6 +20,8 @@ class MovieDetailPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final similarMovies = ref.watch(similarMoviesProvider(movie.id));
+    final favoriteMovies = ref.watch(favoriteMoviesProvider);
+    final isFavorite = favoriteMovies.any((favMovie) => favMovie.id == movie.id);
 
     return Scaffold(
       body: SafeArea(
@@ -27,7 +30,7 @@ class MovieDetailPage extends ConsumerWidget {
           slivers: [
             SliverAppBar.large(
               automaticallyImplyLeading: false,
-              actions: [_buildCloseButton(context)],
+              actions: [_buildFavoriteButton(ref, isFavorite), _buildCloseButton(context)],
               expandedHeight: 300,
               flexibleSpace: FlexibleSpaceBar(
                 centerTitle: true,
@@ -84,6 +87,26 @@ class MovieDetailPage extends ConsumerWidget {
     );
   }
 
+  Widget _buildFavoriteButton(WidgetRef ref, bool isFavorite) {
+    return Container(
+      width: 40,
+      height: 40,
+      margin: const EdgeInsets.only(right: 18),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: Colors.black54,
+      ),
+      child: IconButton(
+        icon: isFavorite
+            ? const Icon(Icons.favorite)
+            : const Icon(Icons.favorite_border),
+        onPressed: () {
+          ref.read(favoriteMoviesProvider.notifier).toggleFavoriteMovie(movie);
+        },
+      ),
+    );
+  }
+
   Widget _buildFlexibleSpaceBarBackground() {
     return ShaderMask(
       shaderCallback: (rect) {
@@ -98,7 +121,7 @@ class MovieDetailPage extends ConsumerWidget {
       child: CachedNetworkImage(
         imageUrl: '${Constants.BASE_IMAGE_URL}${movie.backdropPath}',
         placeholder: (context, url) =>
-        const Center(child: CircularProgressIndicator()),
+            const Center(child: CircularProgressIndicator()),
         errorWidget: (context, url, error) => const SizedBox.shrink(),
         fit: BoxFit.cover,
       ),

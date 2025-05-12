@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../domain/entities/movie.dart';
+import '../providers/favorite_movies_notifier.dart';
 import '../providers/movie_list_provider.dart';
 import '../widgets/movie_carousel_slider.dart';
 import '../widgets/movie_horizontal_list.dart';
@@ -17,6 +18,7 @@ class MovieListPage extends ConsumerWidget {
     final popularMovies = ref.watch(popularMoviesProvider);
     final topRatedMovies = ref.watch(topRatedMoviesProvider);
     final upcomingMovies = ref.watch(upcomingMoviesProvider);
+    final favoriteMovies = ref.watch(favoriteMoviesProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -45,9 +47,26 @@ class MovieListPage extends ConsumerWidget {
                     Center(child: Text(error.toString())),
                 loading: () => const Center(child: CircularProgressIndicator()),
               ),
-              _buildMovieHorizontalListSection(context, 'Popular', popularMovies),
-              _buildMovieHorizontalListSection(context, 'Top Rated', topRatedMovies),
-              _buildMovieHorizontalListSection(context, 'Upcoming', upcomingMovies),
+              _buildAsyncMovieHorizontalListSection(
+                context,
+                'Popular',
+                popularMovies,
+              ),
+              _buildAsyncMovieHorizontalListSection(
+                context,
+                'Top Rated',
+                topRatedMovies,
+              ),
+              _buildAsyncMovieHorizontalListSection(
+                context,
+                'Upcoming',
+                upcomingMovies,
+              ),
+              _buildSyncMovieHorizontalListSection(
+                context,
+                'Favorites',
+                favoriteMovies,
+              ),
               const SizedBox(height: 32),
             ],
           ),
@@ -66,34 +85,52 @@ class MovieListPage extends ConsumerWidget {
     );
   }
 
-  Widget _buildMovieHorizontalListSection(
+  Widget _buildHorizontalListContent(
+    BuildContext context,
+    String title,
+    List<Movie> movies,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(18, 24, 18, 8),
+          child: Text(
+            title,
+            style: GoogleFonts.gowunDodum(fontSize: 20),
+          ),
+        ),
+        MovieHorizontalList(
+          movies: movies,
+          onTapItem: (movie) {
+            _showMovieDetailPage(context, movie);
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget _buildAsyncMovieHorizontalListSection(
     BuildContext context,
     String title,
     AsyncValue<List<Movie>> asyncValue,
   ) {
     return asyncValue.when(
       data: (movies) => movies.isNotEmpty
-          ? Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(18, 24, 18, 8),
-                  child: Text(
-                    title,
-                    style: GoogleFonts.gowunDodum(fontSize: 20),
-                  ),
-                ),
-                MovieHorizontalList(
-                  movies: movies,
-                  onTapItem: (movie) {
-                    _showMovieDetailPage(context, movie);
-                  },
-                ),
-              ],
-            )
+          ? _buildHorizontalListContent(context, title, movies)
           : const SizedBox.shrink(),
       error: (error, stackTrace) => Center(child: Text(error.toString())),
       loading: () => const Center(child: CircularProgressIndicator()),
     );
+  }
+
+  Widget _buildSyncMovieHorizontalListSection(
+    BuildContext context,
+    String title,
+    List<Movie> movies,
+  ) {
+    return movies.isNotEmpty
+        ? _buildHorizontalListContent(context, title, movies)
+        : const SizedBox.shrink();
   }
 }
